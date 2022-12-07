@@ -532,4 +532,7 @@ select {
 
 select {
     border-radius: 15px;
+    font-size: 16px;
+    padding: 5px;
+    width: 4em;
 }
