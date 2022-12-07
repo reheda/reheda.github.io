@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy blackout in Kremenchuk</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/moment-with-locales.min.js"></script>
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+
+        <div class="energy-data">
+            <h1>Графік відключень на Грудень</h1>
+
+            <div class="accordion">
+                <input type="checkbox" name="collapse" id="showSettingsCheckbox" checked="checked">
+                <h2 class="handle">
+                    <label for="showSettingsCheckbox">Налаштування</label>
+                </h2>
+                <div class="content">
+                    <div class="energy-data-controls-wrapper">
+                        <div class="control-wrapper group-selector-wrapper">
+                            <span>Основна черга</span>
+                            <select name="selectGroups" id="selectGroups">
+                                <option value="1">1 черга</option>
+                                <option value="2">2 черга</option>
+                                <option value="3" selected="selected">3 черга</option>
+                            </select>
+                        </div>
+                        <div class="control-wrapper enable-energy-toggle-wrapper">
+                            <span>Показати включення / відключення</span>
+                            <input class="tgl tgl-light" id="enableEnergyBlackoutToggle" type="checkbox" />
+                            <label class="tgl-btn" for="enableEnergyBlackoutToggle">
+                        </div>
+                        <div class="control-wrapper enable-additional-group-toggle-wrapper">
+                            <span>Відключення без додаткових черг / Із додатковими чергами</span>
+                            <input class="tgl tgl-light" id="enableAdditionalGroupToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="enableAdditionalGroupToggle">
+                        </div>
+                        <div class="control-wrapper enable-merging-toggle-wrapper">
+                            <span>Поєднувати черги</span>
+                            <input class="tgl tgl-light" id="enableMergingGroupsToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="enableMergingGroupsToggle">
+                        </div>
+                        <div class="control-wrapper">
+                            <button id="resetSettings" class="button3">Скинути налаштування</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container">
+                <h3 id="headline">Залишилось часу до наступного включення</h3>
+                <div id="countdown">
+                    <ul>
+                        <!-- <li><span id="days"></span>days</li> -->
+                        <li><span id="hours"></span>Годин</li>
+                        <li><span id="minutes"></span>Хвилин</li>
+                        <li><span id="seconds"></span>Секунд</li>
+                    </ul>
+                </div>
+                <div id="content" class="emoji">
+                    <span>🥳</span>
+                    <span>🎉</span>
+                    <span>🎂</span>
+                </div>
+            </div>
+
+            <div class="date-picker-wrapper">
+                <div>
+                    <button id="todayButton" class="button3 selected">Сьогодні</button>
+                    <button id="tomorrowButton" class="button3">Завтра</button>
+                    <input type="date" id="anyDateInput" name="trip-start" value="2022-12-02" min="2022-12-01" max="2022-12-31">
+                </div>
+                <!-- <div>
+                    <label for="anyDateInput">Або вибрати дату:</label>
+                    <input type="date" id="anyDateInput" name="trip-start" value="2022-12-02" min="2022-12-01" max="2022-12-31">
+                </div> -->
+
+            </div>
+
+
+            <!-- https://codepen.io/geoffyuen/pen/DZxEKy -->
+            <table class="rwd-table" id="gable">
+                <caption id="gableCaption">Години відключення/включення на сьогодні</caption>
+                <thead>
+
+                    <tr>
+                        <th>Години доби</th>
+                        <th id="duration-name">Тривалість</th>
+                        <th>Група</th>
+                    </tr>
+                </thead>
+                <!-- <tr>
+                <td data-th="Години доби">00:30 - 03:00</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">1</td>
+            </tr>
+            <tr>
+                <td data-th="Години доби">03:00 - 05:30</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">2</td>
+            </tr>
+            <tr>
+                <td data-th="Години доби">05:30 - 08:00</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">3</td>
+            </tr> -->
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="links">
+            <h1>Корисні посилання</h1>
+            <ul>
+                <li><a href="https://www.poe.pl.ua/" target="_blank">АТ "ПОЛТАВАОБЛЕНЕРГО"</a></li>
+                <li><a href="https://energy-ua.info/grafik.php?city=%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA&street=%D0%9A%D0%B2.278&num=1-37&day=today"
+                        target="_blank">https://energy-ua.info/</a></li>
+                <li><a href="https://www.poe.pl.ua/wp-content/uploads/2022/12/Kopyia-Hodyny-vidkliuchen-novi.pdf"
+                        target="_blank">графік віключень від Полтаваобленерго на грудень (pdf)</a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+<!-- toggle
+https://codepen.io/mallendeo/pen/QWKrEL -->
