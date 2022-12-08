@@ -145,7 +145,7 @@ function populateTableData(blackouts, currentDate, params) {
         powerWording = turnOffWording;
     }
 
-    var additionalGroupsWording = params.showAdditionalGroups ? 'з урахування додаткових черг відключення' : '';
+    var additionalGroupsWording = params.showAdditionalGroups ? 'з урахуванням додаткових черг відключення' : '';
 
     var momentCurrentDate = moment(currentDate).locale('uk');
     console.log(momentCurrentDate.format());
