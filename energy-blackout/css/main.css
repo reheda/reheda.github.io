@@ -1,0 +1,185 @@
+/* @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700"; */
+/* @import url("https://fonts.googleapis.com/css?family=Mukta:700"); */
+
+/* montserrat-300 - latin_cyrillic */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    src: local(''),
+        url('../fonts/montserrat/montserrat-v25-latin_cyrillic-300.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/montserrat/montserrat-v25-latin_cyrillic-300.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* montserrat-regular - latin_cyrillic */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/montserrat/montserrat-v25-latin_cyrillic-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/montserrat/montserrat-v25-latin_cyrillic-regular.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* montserrat-700 - latin_cyrillic */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+        url('../fonts/montserrat/montserrat-v25-latin_cyrillic-700.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/montserrat/montserrat-v25-latin_cyrillic-700.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* overpass-regular - latin_cyrillic */
+@font-face {
+    font-family: 'Overpass';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/overpass/overpass-v12-latin_cyrillic-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/overpass/overpass-v12-latin_cyrillic-regular.ttf') format('ttf');
+}
+
+
+body {
+    padding: 0 2em;
+    font-family: Montserrat, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    color: #444;
+    background: #fff;
+    /* background-image: linear-gradient(to right top, #1e3352, #333b54, #424455, #4f4e57, #595959); */
+    /* background: linear-gradient(225deg, #9c7cf8 0%, #e6cfc9 100%) */
+}
+
+h1 {
+    font-weight: normal;
+    letter-spacing: -1px;
+    color: #34495E;
+}
+
+
+/* my */
+li {
+    line-height: 1.6;
+}
+
+
+.energy-data {
+    margin-top: 50px;
+}
+
+
+.control-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+
+
+.control-wrapper span {
+    width: 75%;
+    margin: 1em 0;
+    margin-right: 1em;
+    text-align: right;
+}
+
+table caption {
+    color: #34495E;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+select {
+    height: 2.5em;
+}
+
+.green-text {
+    color: #2e7d32;
+}
+
+.red-text {
+    color: #c62828;
+}
+
+.yellow-text {
+    color: #dd5;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.dark-blue-text {
+    color: #34495E;
+}
+
+.green-bg {
+    background-color: #2e7d32;
+}
+
+.red-bg {
+    background-color: #c62828;
+}
+
+.yellow-bg {
+    background-color: #dd5;
+}
+
+.active-row {
+    color: #34495E;
+    background-color: #dd5;
+    font-weight: bold;
+}
+
+.date-picker-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.date-picker-wrapper button {
+    margin: 1em 0.5em;
+}
+
+.date-picker-wrapper input {
+    height: 2.4em;
+    border-radius: 15px;
+    min-height: 30px;
+    margin: 1em 0.5em;
+    border: 2px solid #46637f;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+select {
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 5px;
+    width: 4em;
+}
+
+
+
+a {
+    color: #34495E;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    /* color: #dd5; */
+    /* font-weight: bold; */
+}
