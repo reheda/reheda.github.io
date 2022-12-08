@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy blackout in Kremenchuk</title>
+    <title>Energy blackout in Poltava region</title>
 
     <link rel="stylesheet" href="css/main.css">
     <script src="js/moment-with-locales.min.js"></script>
@@ -18,47 +18,54 @@
 
 
         <div class="energy-data">
+            <p>Полтавська обл.</p>
             <h1>Графік відключень на Грудень</h1>
 
             <div class="accordion">
-                <input type="checkbox" name="collapse" id="showSettingsCheckbox" checked="checked">
+                <input type="checkbox" name="collapse" id="showSettingsToggle" checked="checked">
                 <h2 class="handle">
-                    <label for="showSettingsCheckbox">Налаштування</label>
+                    <label for="showSettingsToggle">Налаштування</label>
                 </h2>
                 <div class="content">
                     <div class="energy-data-controls-wrapper">
                         <div class="control-wrapper group-selector-wrapper">
                             <span>Основна черга</span>
-                            <select name="selectGroups" id="selectGroups">
+                            <select name="groupDropdown" id="groupDropdown">
                                 <option value="1">1 ч.</option>
                                 <option value="2">2 ч.</option>
                                 <option value="3" selected="selected">3 ч.</option>
                             </select>
                         </div>
                         <div class="control-wrapper enable-energy-toggle-wrapper">
-                            <span>Показати включення / відключення</span>
+                            <!-- <span>Показати включення / відключення</span>
                             <input class="tgl tgl-light" id="enableEnergyBlackoutToggle" type="checkbox" />
-                            <label class="tgl-btn" for="enableEnergyBlackoutToggle">
+                            <label class="tgl-btn" for="enableEnergyBlackoutToggle"> -->
+                            <span>Показати лише</span>
+                            <select name="showPowerForDropdown" id="showPowerForDropdown">
+                                <option value="on">вкл.</option>
+                                <option value="off">відкл.</option>
+                                <option value="all" selected="selected">все</option>
+                            </select>
                         </div>
                         <div class="control-wrapper enable-additional-group-toggle-wrapper">
                             <span>Відключення без додаткових черг / Із додатковими чергами</span>
-                            <input class="tgl tgl-light" id="enableAdditionalGroupToggle" type="checkbox" checked />
-                            <label class="tgl-btn" for="enableAdditionalGroupToggle">
+                            <input class="tgl tgl-light" id="additionalGroupToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="additionalGroupToggle">
                         </div>
                         <div class="control-wrapper enable-merging-toggle-wrapper">
-                            <span>Поєднувати черги</span>
-                            <input class="tgl tgl-light" id="enableMergingGroupsToggle" type="checkbox" checked />
-                            <label class="tgl-btn" for="enableMergingGroupsToggle">
+                            <span>Поєднувати суміжні черги за схожістю</span>
+                            <input class="tgl tgl-light" id="mergingGroupsToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="mergingGroupsToggle">
                         </div>
                         <div class="control-wrapper">
-                            <button id="resetSettings" class="button3">Скинути налаштування</button>
+                            <button id="resetSettingsButton" class="button3">Скинути налаштування</button>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="container">
+            <div class="countdown-wrapper">
                 <h3 id="headline">Залишилось часу до наступного</h3>
                 <div id="countdown">
                     <ul>
@@ -92,7 +99,8 @@
                     <tr>
                         <th>Години доби</th>
                         <th id="duration-name">Тривалість</th>
-                        <th>Група</th>
+                        <!-- <th>Група</th> -->
+                        <th>Вкл/відкл</th>
                     </tr>
                 </thead>
                 <!-- <tr>
@@ -120,8 +128,8 @@
             <h1>Корисні посилання</h1>
             <ul>
                 <li><a href="https://www.poe.pl.ua/" target="_blank">АТ "ПОЛТАВАОБЛЕНЕРГО"</a></li>
-                <li><a href="https://energy-ua.info/cherga.php?n=3&day=today"
-                        target="_blank">https://energy-ua.info/</a></li>
+                <!-- <li><a href="https://energy-ua.info/cherga.php?n=3&day=today"
+                        target="_blank">https://energy-ua.info/</a></li> -->
                 <li><a href="https://www.poe.pl.ua/wp-content/uploads/2022/12/Kopyia-Hodyny-vidkliuchen-novi.pdf"
                         target="_blank">графік віключень від Полтаваобленерго на грудень (pdf)</a></li>
             </ul>
