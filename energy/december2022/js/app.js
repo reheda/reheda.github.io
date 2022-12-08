@@ -104,7 +104,7 @@ const blackouts = [
 ]
 
 var selectedDate = new Date();
-// var selectedDate = new Date("2022-12-08T23:12:00");
+// var selectedDate = new Date("2022-12-08T18:00:03");
 var selectedParams = { showPowerFor: "all", showAdditionalGroups: true, selectedGroup: "3", enableMergingGroups: true, showSettings: true };
 
 populateTableData(blackouts, selectedDate, JSON.parse(localStorage.getItem("selectedParams")));
@@ -227,7 +227,7 @@ function populateTableData(blackouts, currentDate, params) {
             document.getElementById("headline").style.display = "block";
             document.getElementById("countdown").style.display = "block";
 
-            var timeLeftWording;            
+            var timeLeftWording;
             if (elem.isActiveSlot) {
                 var nextPowerChangeElem = getNextChangePowerElement(mergedPowerData, index, elem);
                 if (nextPowerChangeElem) {
@@ -249,12 +249,7 @@ function populateTableData(blackouts, currentDate, params) {
             document.getElementById("countdown").style.display = "none";
         }
 
-
-
-
-
-
-        if (shouldProcessElement) {            
+        if (shouldProcessElement) {
             var tr = document.createElement('tr');
 
             tr.innerHTML = '<td data-th="Години доби">' + elem.timeSlot + '</td>' +
@@ -292,7 +287,7 @@ function isBeetweenSlots(momentDate, timeSlot) {
         momentTimeSlotEnd.add(1, 'days');
     }
 
-    if (momentDate.isBetween(momentTimeSlotStart, momentTimeSlotEnd, 'm')) {
+    if (momentDate.isBetween(momentTimeSlotStart, momentTimeSlotEnd, 'm', '[)')) {
 
         return true;
     }
@@ -380,8 +375,10 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
             'month': momentCurrentDate.month(),
             'day': momentCurrentDate.day(),
             // 'hours': momentCurrentDate.hours(),
+            // 'minutes': momentCurrentDate.minutes(),
         });
 
+        // console.log(corretMomentBasedOnCurrentDate.format())
         const myDuration = moment.duration(updatedTargetDate.diff(corretMomentBasedOnCurrentDate));
         document.getElementById("hours").innerText = myDuration.hours(),
             document.getElementById("minutes").innerText = myDuration.minutes(),
@@ -395,7 +392,7 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
             clearInterval(x);
         }
         //seconds
-    }, 0)
+    }, 200)
 };
 
 
