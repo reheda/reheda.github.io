@@ -50,6 +50,7 @@
 
 
 body {
+
     padding: 0 2em;
     font-family: Montserrat, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -182,4 +183,16 @@ a:hover {
     text-decoration: underline;
     /* color: #dd5; */
     /* font-weight: bold; */
+}
+
+.main-img {
+    width: 15em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #34495E;
+    fill: currentcolor;
+    opacity: 0.2;
+    z-index: -999;
 }

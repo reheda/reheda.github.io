@@ -255,7 +255,7 @@ function populateTableData(blackouts, currentDate, params) {
             tr.innerHTML = '<td data-th="Години доби">' + elem.timeSlot + '</td>' +
                 `<td data-th="Тривалість">` + elem.duration + '</td>' +
                 // '<td data-th="Черга">' + elem.group + '</td>'+
-                `<td data-th="Вкл/відкл"><span class="circle ${elem.powerEnabled ? 'green-bg' : 'red-bg'}"></span></td>`;
+                `<td data-th="Вкл/відкл" style="display: flex;"><span class="circle ${elem.powerEnabled ? 'green-bg' : 'red-bg'}"></span></td>`;
 
             if (momentCurrentDate.isSame(new Date(), "day") && elem.isActiveSlot) {
                 tr.classList.add('active-row');
