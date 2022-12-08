@@ -167,14 +167,9 @@ function populateTableData(blackouts, currentDate, params) {
     document.getElementById("showSettingsToggle").checked = params.showSettings;
     document.getElementById("groupDropdown").value = params.selectedGroup;
 
-
-    var tableRows = [];
-
-
     var powerData = [];
 
     blackouts.filter(blackout => blackout.dates.includes(day)).forEach(function (blackout) {
-
 
         blackout.groupWithTimeSlots.forEach(groupWithTimeSlotsElem => {
             var powerEnabled = groupWithTimeSlotsElem.groupDetails.group !== Number(params.selectedGroup);
@@ -207,65 +202,7 @@ function populateTableData(blackouts, currentDate, params) {
 
         });
 
-
-
-        // blackout.groupWithTimeSlots.forEach(groupWithTimeSlotsElem => {
-        //     var groupCondition;
-        //     var durationName;
-        //     var on;
-        //     if (params.showPowerFor) {
-        //         durationName = 'Тривалість відключення';
-        //         groupCondition = groupWithTimeSlotsElem.groupDetails.group === Number(params.selectedGroup);
-        //         if (params.showAdditionalGroups) {
-        //             var isAdditionalGroup = groupWithTimeSlotsElem.groupDetails.additionalGroups.includes(Number(params.selectedGroup));
-        //             groupCondition = groupCondition || isAdditionalGroup;
-        //         }
-        //         on = false;
-        //     } else {
-        //         durationName = 'Тривалість включення';
-        //         groupCondition = groupWithTimeSlotsElem.groupDetails.group !== Number(params.selectedGroup);
-        //         if (params.showAdditionalGroups) {
-        //             var isAdditionalGroup = !groupWithTimeSlotsElem.groupDetails.additionalGroups.includes(Number(params.selectedGroup));
-        //             groupCondition = groupCondition && isAdditionalGroup;
-        //         }
-        //         on = true;
-        //     }
-
-
-        //     // document.getElementById("duration-name").innerText = durationName;
-
-        //     // if (groupCondition) {
-        //     var timeSlotDetails = groupWithTimeSlotsElem.timeSlotDetails;
-        //     timeSlotDetails.forEach(timeSlot => {
-
-        //         var [timeSlotStart, timeSlotEnd] = timeSlot.split(' - ');
-        //         var momentTimeSlotStart = moment(timeSlotStart, ['H:m']);
-        //         var momentTimeSlotEnd = moment(timeSlotEnd, ['H:m'])
-        //         var duration = moment.duration(momentTimeSlotEnd.diff(momentTimeSlotStart))
-        //         var durationAsHours = duration.asHours();
-        //         var blackoutDurationAsHours = durationAsHours < 0 ? parseFloat((24 + durationAsHours).toFixed(1)) : parseFloat(durationAsHours.toFixed(1));
-
-        //         tableRows.push({
-        //             timeSlot: timeSlot,
-        //             duration: blackoutDurationAsHours,
-        //             // group: Number(params.selectedGroup),
-        //             group: groupWithTimeSlotsElem.groupDetails.group,
-        //             display: groupCondition,
-        //             on: on,
-        //         });
-
-        //     });
-
-        //     // }
-        // });
     });
-
-    // tableRows.sort((a, b) => a.timeSlot.localeCompare(b.timeSlot));
-
-    // var processedRows = [...tableRows];
-    // if (params.enableMergingGroups) {
-    //     processedRows = mergeTimeSlots(processedRows.filter(row => row.display), params);
-    // }
 
     powerData.sort((a, b) => a.timeSlot.localeCompare(b.timeSlot));
 
@@ -275,7 +212,6 @@ function populateTableData(blackouts, currentDate, params) {
     }
 
     // populate table
-    var activeSlotDisplayed
     mergedPowerData.forEach((elem, index) => {
         var shouldProcessElement = false;
         if (params.showPowerFor == "all") {
@@ -285,7 +221,6 @@ function populateTableData(blackouts, currentDate, params) {
         } else if (params.showPowerFor == "off") {
             shouldProcessElement = elem.powerEnabled == false;
         }
-
 
         if (momentCurrentDate.isSame(new Date(), "day")) {
 
@@ -371,12 +306,6 @@ function mergeTimeSlots(powerData, params) {
 
     powerData.forEach(function (item) {
         var modifiedItem = { ...item };
-        // if (params.showAdditionalGroups) {
-        // console.log("additional",allGroups.filter(el => el.additionalGroups.includes(item.group)).map(el => el.group))
-        // console.log("group", item.group);
-        // modifiedItem.group = [modifiedItem.group, ...allGroups.filter(el => el.additionalGroups.includes(item.group)).map(el => el.group)].join('+');
-        // }
-
 
         var [timeSlotStart, timeSlotEnd] = modifiedItem.timeSlot.split(' - ');
 
