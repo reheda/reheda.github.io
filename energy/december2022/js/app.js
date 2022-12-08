@@ -104,7 +104,7 @@ const blackouts = [
 ]
 
 var selectedDate = new Date();
-// var selectedDate = new Date("2022-12-08T18:00:03");
+// var selectedDate = new Date("2022-12-08T18:00:00");
 var selectedParams = { showPowerFor: "all", showAdditionalGroups: true, selectedGroup: "3", enableMergingGroups: true, showSettings: true };
 
 populateTableData(blackouts, selectedDate, JSON.parse(localStorage.getItem("selectedParams")));
@@ -386,9 +386,9 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
 
         //do something later when date is reached
         if (myDuration.seconds() < 0) {
-            // document.getElementById("headline").innerText = "It's my birthday!";
-            // document.getElementById("countdown").style.display = "none";
-            // document.getElementById("content").style.display = "block";
+            document.getElementById("headline").innerText = "Оновіть, будь ласка, сторінку!";
+            document.getElementById("countdown").style.display = "none";
+            document.getElementById("content").style.display = "block";
             clearInterval(x);
         }
         //seconds
