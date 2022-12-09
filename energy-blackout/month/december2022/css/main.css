@@ -465,6 +465,7 @@ li {
 
 .energy-data {
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 
@@ -545,7 +546,7 @@ select {
 }
 
 .date-picker-wrapper input {
-    padding: 0 20px;
+    padding: 0 24px;
     height: 2.4em;
     border-radius: 15px;
     min-height: 30px;
