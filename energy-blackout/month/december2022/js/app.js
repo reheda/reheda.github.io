@@ -150,6 +150,12 @@ function populateTableData(blackouts, currentDate, params) {
     var momentCurrentDate = moment(currentDate).locale('uk');
     console.log(momentCurrentDate.format());
 
+    if (!momentCurrentDate.isSame(new Date(), "month")) {
+        document.getElementById("gableCaption").innerHTML = `<span class="red-text">Виберіть, будь ласка, коректну дату у поточному місяці!</span>`;
+        return;
+    }
+    
+
     //table caption
     document.getElementById("gableCaption").innerHTML = `Години ${powerWording} світла у ${params.selectedGroup} черзі ${additionalGroupsWording} ${momentCurrentDate.calendar(null, {
         sameDay: '[сьогодні] (DD MMMM YYYY)',
