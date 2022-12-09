@@ -104,7 +104,7 @@ const blackouts = [
 ]
 
 var selectedDate = new Date();
-// var selectedDate = new Date("2022-12-08T18:00:00");
+// var selectedDate = new Date("2022-12-09T21:59:00");
 var selectedParams = { showPowerFor: "all", showAdditionalGroups: true, selectedGroup: "3", enableMergingGroups: true, showSettings: true };
 
 populateTableData(blackouts, selectedDate, JSON.parse(localStorage.getItem("selectedParams")));
@@ -245,10 +245,11 @@ function populateTableData(blackouts, currentDate, params) {
                     timeLeftWording = nextPowerChangeElem.powerEnabled ? turnOnWording : turnOffWording;
                     startCountdown(moment(nextPowerChangeElem.timeSlot.split(" - ")[0], ['H:m']), momentCurrentDate);
                 } else {
-                    // take end date of the current element as desired time for countdown
+                    // take end date of the last same power element as desired time for countdown
                     console.log("NO nextPowerChangeElem");
-                    timeLeftWording = elem.powerEnabled ? turnOffWording : turnOnWording;
-                    startCountdown(moment(elem.timeSlot.split(" - ")[1], ['H:m']), momentCurrentDate);
+                    var lastSamePowerElem = getLastSamePowerElement(mergedPowerData, index, elem);
+                    timeLeftWording = lastSamePowerElem.powerEnabled ? turnOffWording : turnOnWording;
+                    startCountdown(moment(lastSamePowerElem.timeSlot.split(" - ")[1], ['H:m']), momentCurrentDate);
                 }
                 document.getElementById("headline").innerHTML = `Залишилось часу до наступного ${timeLeftWording}`;
 
@@ -283,6 +284,14 @@ function getNextChangePowerElement(powerData, index, elem) {
     // possible issue with index, as index + 1 can be greater than lengh?
     for (let i = index + 1; i < powerData.length; i++) {
         if (powerData[i].powerEnabled != elem.powerEnabled) {
+            return powerData[i];
+        }
+    }
+}
+
+function getLastSamePowerElement(powerData, index, elem) {
+    for (let i = powerData.length - 1; i >= index; i++) {
+        if (powerData[i].powerEnabled == elem.powerEnabled) {
             return powerData[i];
         }
     }
@@ -383,8 +392,8 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
             'year': momentCurrentDate.year(),
             'month': momentCurrentDate.month(),
             'day': momentCurrentDate.day(),
-            // 'hours': momentCurrentDate.hours(),
-            // 'minutes': momentCurrentDate.minutes(),
+            'hours': momentCurrentDate.hours(),
+            'minutes': momentCurrentDate.minutes(),
         });
 
         // console.log(corretMomentBasedOnCurrentDate.format())
