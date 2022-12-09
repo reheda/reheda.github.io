@@ -392,8 +392,8 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
             'year': momentCurrentDate.year(),
             'month': momentCurrentDate.month(),
             'day': momentCurrentDate.day(),
-            'hours': momentCurrentDate.hours(),
-            'minutes': momentCurrentDate.minutes(),
+            // 'hours': momentCurrentDate.hours(),
+            // 'minutes': momentCurrentDate.minutes(),
         });
 
         // console.log(corretMomentBasedOnCurrentDate.format())
