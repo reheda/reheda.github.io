@@ -173,6 +173,9 @@ function populateTableData(blackouts, currentDate, params) {
     document.getElementById("showSettingsToggle").checked = params.showSettings;
     document.getElementById("groupDropdown").value = params.selectedGroup;
 
+    // hide refresh button
+    document.getElementById("content").style.display = "none";
+
     var powerData = [];
 
     blackouts.filter(blackout => blackout.dates.includes(day)).forEach(function (blackout) {
