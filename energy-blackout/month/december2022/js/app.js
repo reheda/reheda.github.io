@@ -457,15 +457,17 @@ document.getElementById('tomorrowButton').addEventListener("click", (e) => {
 
 });
 
-document.getElementById('anyDateInput').addEventListener("change", (e) => {
-    console.log(e.target.value);
-    document.getElementById('todayButton').classList.remove('selected');
-    document.getElementById('tomorrowButton').classList.remove('selected');
-    document.getElementById('anyDateInput').classList.add('selected');
-    var corretDateWithoutTime = moment(e.target.value);
-    populateTableData(blackouts, moment().set({
-        'year': corretDateWithoutTime.year(),
-        'month': corretDateWithoutTime.month(),
-        'day': corretDateWithoutTime.day(),
-    }).toDate());
-});
+['change','click'].forEach( evt => 
+    document.getElementById('anyDateInput').addEventListener(evt, (e) => {
+        console.log(e.target.value);
+        document.getElementById('todayButton').classList.remove('selected');
+        document.getElementById('tomorrowButton').classList.remove('selected');
+        document.getElementById('anyDateInput').classList.add('selected');
+        var corretDateWithoutTime = moment(e.target.value);
+        populateTableData(blackouts, moment().set({
+            'year': corretDateWithoutTime.year(),
+            'month': corretDateWithoutTime.month(),
+            'date': corretDateWithoutTime.date(),
+        }).toDate());
+    })
+);
