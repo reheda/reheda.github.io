@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Графік відключень світла на Січень у Полтавській області</title>
+
+    <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <link rel="apple-touch-icon" href="../../img/ios/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../img/ios/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../img/ios/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="../../img/ios/touch-icon-ipad-retina.png">
+
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/moment-with-locales.min.js" defer></script>
+    <script src="js/app.js" type="module" defer></script>
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+
+        <div class="energy-data">
+            <p><a href="../../">← Повернутися на головну</a></p>
+            <p>Полтавська обл.</p>
+            <h1>Графік відключень на Січень 2023</h1>
+
+            <div class="accordion">
+                <input type="checkbox" name="collapse" id="showSettingsToggle" checked="checked">
+                <h2 class="handle">
+                    <label for="showSettingsToggle">Налаштування</label>
+                </h2>
+                <div class="content">
+                    <div class="energy-data-controls-wrapper">
+                        <div class="control-wrapper group-selector-wrapper">
+                            <span>Основна черга</span>
+                            <select name="groupDropdown" id="groupDropdown">
+                                <option value="1">1 ч.</option>
+                                <option value="2">2 ч.</option>
+                                <option value="3" selected="selected">3 ч.</option>
+                            </select>
+                        </div>
+                        <div class="control-wrapper enable-energy-toggle-wrapper">
+                            <span>Показати лише</span>
+                            <select name="showPowerForDropdown" id="showPowerForDropdown">
+                                <option value="on">вкл.</option>
+                                <option value="off">відкл.</option>
+                                <option value="all" selected="selected">все</option>
+                            </select>
+                        </div>
+                        <div class="control-wrapper enable-additional-group-toggle-wrapper">
+                            <span>Відключення без додаткових черг / Із додатковими чергами</span>
+                            <input class="tgl tgl-light" id="additionalGroupToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="additionalGroupToggle">
+                        </div>
+                        <div class="control-wrapper enable-merging-toggle-wrapper">
+                            <span>Поєднувати суміжні черги за схожістю</span>
+                            <input class="tgl tgl-light" id="mergingGroupsToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="mergingGroupsToggle">
+                        </div>
+                        <div class="control-wrapper show-low-temp-blackouts-toggle-wrapper">
+                            <span>Відключення для температур нижче -10°C</span>
+                            <input class="tgl tgl-light" id="lowTempBlackoutsToggle" type="checkbox" checked />
+                            <label class="tgl-btn" for="lowTempBlackoutsToggle">
+                        </div>
+                        <div class="control-wrapper">
+                            <button id="resetSettingsButton" class="button3">Скинути налаштування</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="countdown-wrapper">
+                <h3 id="headline">Залишилось часу до наступного</h3>
+                <div id="countdown">
+                    <ul>
+                        <!-- <li><span id="days"></span>days</li> -->
+                        <li><span id="hours"></span>Годин</li>
+                        <li><span id="minutes"></span>Хвилин</li>
+                        <li><span id="seconds"></span>Секунд</li>
+                    </ul>
+                </div>
+                <div id="content" class="emoji">
+                    <span onclick="location.reload()" style="cursor: pointer;">🔃</span>
+                    <!-- <span>🎉</span> -->
+                    <!-- <span>🎂</span> -->
+                </div>
+            </div>
+
+            <div class="date-picker-wrapper">
+                <div>
+                    <button id="todayButton" class="button3 selected">Сьогодні</button>
+                    <button id="tomorrowButton" class="button3">Завтра</button>
+                    <input type="date" id="anyDateInput" name="trip-start" value="2023-01-01" min="2023-01-01" max="2023-01-31">
+                </div>
+            </div>
+
+
+            <!-- https://codepen.io/geoffyuen/pen/DZxEKy -->
+            <table class="rwd-table" id="gable">
+                <caption id="gableCaption">Години відключення/включення на сьогодні</caption>
+                <thead>
+
+                    <tr>
+                        <th>Години доби</th>
+                        <th id="duration-name">Тривалість</th>
+                        <!-- <th>Група</th> -->
+                        <th>Вкл/відкл</th>
+                    </tr>
+                </thead>
+                <!-- <tr>
+                <td data-th="Години доби">00:30 - 03:00</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">1</td>
+            </tr>
+            <tr>
+                <td data-th="Години доби">03:00 - 05:30</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">2</td>
+            </tr>
+            <tr>
+                <td data-th="Години доби">05:30 - 08:00</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">3</td>
+            </tr> -->
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="links">
+            <h1>Корисні посилання</h1>
+            <ul>
+                <li><a href="https://www.poe.pl.ua/" target="_blank">АТ "ПОЛТАВАОБЛЕНЕРГО"</a></li>
+                <li><a href="https://www.poe.pl.ua/disconnection/hrafik-pohodynnoho-vidkliuchennia-elektroenerhii/">Графік погодинного відключення</a></li>
+                <li><a href="https://www.poe.pl.ua/wp-content/uploads/2023/01/HPV.pdf"
+                        target="_blank">Черги віключень від Полтаваобленерго на січень 2023 (pdf)</a></li>
+                <li><a href="https://www.poe.pl.ua/wp-content/uploads/2022/10/Sichen-2023_-Hodyny-vidkliuchen-novi.pdf"
+                        target="_blank">Графік віключень від Полтаваобленерго на січень 2023 (pdf)</a></li>
+                <li><a href="https://www.poe.pl.ua/wp-content/uploads/2023/01/Hrafik-vymknen-po-cherham-HPV-na-sichen-2023-r.-dlia-periodu-nyzkykh-tkmperatur-nyzhche-10-po-15-hodyny.pdf"
+                        target="_blank">
+                        Графік віключень від Полтаваобленерго на січень 2023 для періоду низьких температур нижче -10 (по 1,5 години) (pdf) </a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+<!-- toggle
+https://codepen.io/mallendeo/pen/QWKrEL -->
