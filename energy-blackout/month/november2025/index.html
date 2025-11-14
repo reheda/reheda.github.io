@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Графік відключень світла на Листопад 2025 у Полтавській області</title>
+
+    <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <link rel="apple-touch-icon" href="../../img/ios/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../img/ios/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../img/ios/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="../../img/ios/touch-icon-ipad-retina.png">
+
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/moment-with-locales.min.js" defer></script>
+    <script src="js/app.js" type="module" defer></script>
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+
+        <div class="energy-data">
+            <p><a href="../../">← Повернутися на головну</a></p>
+            <p>Полтавська обл.</p>
+            <h1>Графік відключень на Листопад 2025</h1>
+
+            <div class="accordion">
+                <input type="checkbox" name="collapse" id="showSettingsToggle" checked="checked">
+                <h2 class="handle">
+                    <label for="showSettingsToggle">Налаштування</label>
+                </h2>
+                <div class="content">
+                    <div class="energy-data-controls-wrapper">
+                        <div class="control-wrapper group-selector-wrapper">
+                            <span>Основна черга</span>
+                            <select name="groupDropdown" id="groupDropdown">
+                                <option value="1.1">1.1 ч.</option>
+                                <option value="1.2">1.2 ч.</option>
+                                <option value="2.1">2.1 ч.</option>
+                                <option value="2.2">2.2 ч.</option>
+                                <option value="3.1">3.1 ч.</option>
+                                <option value="3.2">3.2 ч.</option>
+                                <option value="4.1">4.1 ч.</option>
+                                <option value="4.2">4.2 ч.</option>
+                                <option value="5.1">5.1 ч.</option>
+                                <option value="5.2" selected="selected">5.2 ч.</option>
+                                <option value="6.1">6.1 ч.</option>
+                                <option value="6.2">6.2 ч.</option>
+                            </select>
+                        </div>
+                        <div class="control-wrapper enable-energy-toggle-wrapper">
+                            <span>Показати лише</span>
+                            <select name="showPowerForDropdown" id="showPowerForDropdown">
+                                <option value="on">вкл.</option>
+                                <option value="off">відкл.</option>
+                                <option value="all" selected="selected">все</option>
+                            </select>
+                        </div>
+                        <div class="control-wrapper">
+                            <button id="resetSettingsButton" class="button3">Скинути налаштування</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="countdown-wrapper">
+                <h3 id="headline">Залишилось часу до наступного</h3>
+                <div id="countdown">
+                    <ul>
+                        <!-- <li><span id="days"></span>days</li> -->
+                        <li><span id="hours"></span>Годин</li>
+                        <li><span id="minutes"></span>Хвилин</li>
+                        <li><span id="seconds"></span>Секунд</li>
+                    </ul>
+                </div>
+                <div id="content" class="emoji">
+                    <span onclick="location.reload()" style="cursor: pointer;">🔃</span>
+                    <!-- <span>🎉</span> -->
+                    <!-- <span>🎂</span> -->
+                </div>
+            </div>
+
+            <div class="date-picker-wrapper">
+                <div>
+                    <button id="todayButton" class="button3 selected">Сьогодні</button>
+                    <button id="tomorrowButton" class="button3">Завтра</button>
+                    <input type="date" id="anyDateInput" name="trip-start" value="2025-11-01" min="2025-11-01" max="2025-11-30">
+                </div>
+            </div>
+
+
+            <!-- https://codepen.io/geoffyuen/pen/DZxEKy -->
+            <table class="rwd-table" id="gable">
+                <caption id="gableCaption">Години відключення/включення на сьогодні</caption>
+                <thead>
+
+                    <tr>
+                        <th>Години доби</th>
+                        <th id="duration-name">Тривалість</th>
+                        <!-- <th>Група</th> -->
+                        <th>Вкл/відкл</th>
+                    </tr>
+                </thead>
+                <!-- <tr>
+                <td data-th="Години доби">00:30 - 03:00</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">1</td>
+            </tr>
+            <tr>
+                <td data-th="Години доби">03:00 - 05:30</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">2</td>
+            </tr>
+            <tr>
+                <td data-th="Години доби">05:30 - 08:00</td>
+                <td data-th="Тривалість відключення">2,5</td>
+                <td data-th="Група">3</td>
+            </tr> -->
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="links">
+            <h1>Корисні посилання</h1>
+            <ul>
+                <li><a href="https://www.poe.pl.ua/" target="_blank">АТ "ПОЛТАВАОБЛЕНЕРГО"</a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+<!-- toggle
+https://codepen.io/mallendeo/pen/QWKrEL -->
