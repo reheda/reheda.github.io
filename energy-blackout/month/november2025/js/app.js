@@ -322,7 +322,7 @@ function populateTableData(currentDate, params) {
         if (shouldProcessElement) {
             var tr = document.createElement('tr');
 
-            tr.innerHTML = '<td data-th="Години доби">' + elem.timeSlot + '</td>' +
+            tr.innerHTML = '<td data-th="Період">' + elem.timeSlot + '</td>' +
                 `<td data-th="Тривалість">` + elem.duration + '</td>' +
                 // '<td data-th="Черга">' + elem.group + '</td>'+
                 `<td data-th="Вкл/відкл" style="display: flex;"><span class="circle ${elem.powerEnabled ? 'green-bg' : 'red-bg'}"></span></td>`;

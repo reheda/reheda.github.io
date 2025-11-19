@@ -50,7 +50,7 @@
 
 .rwd-table {
     margin: 1em 0;
-    min-width: 275px;
+    min-width: 320px;
 }
 
 .rwd-table tr {
@@ -250,7 +250,7 @@ h1 {
 
 .tgl-light:checked+.tgl-btn {
     /* background: #9FD6AE; */
-    background: #c62828;
+    background: #E53935;
 }
 
 
@@ -496,11 +496,11 @@ select {
 }
 
 .green-text {
-    color: #2e7d32;
+    color: #4CAF50;
 }
 
 .red-text {
-    color: #c62828;
+    color: #E53935;
 }
 
 .yellow-text {
@@ -516,11 +516,11 @@ select {
 }
 
 .green-bg {
-    background-color: #2e7d32;
+    background-color: #4CAF50;
 }
 
 .red-bg {
-    background-color: #c62828;
+    background-color: #E53935;
 }
 
 .yellow-bg {
