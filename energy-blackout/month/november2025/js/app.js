@@ -279,6 +279,36 @@ function populateTableData(currentDate, params) {
 
     // No need to merge by groups anymore; we already have contiguous ranges per group
     var mergedPowerData = [...powerData];
+    
+    // Calculate total hours ON and OFF for the selected group & date
+    let totalOn = 0;
+    let totalOff = 0;
+
+    mergedPowerData.forEach(elem => {
+        if (elem.powerEnabled) {
+            totalOn += elem.duration;
+        } else {
+            totalOff += elem.duration;
+        }
+    });
+
+    // Round to 0.1 hour
+    totalOn = Math.round(totalOn * 10) / 10;
+    totalOff = Math.round(totalOff * 10) / 10;
+
+    // Show totals under the table
+    const totalsEl = document.getElementById("powerTotals");
+    if (totalsEl) {
+        // Use comma as decimal separator for UA style
+        const onStr = totalOn.toFixed(1).replace('.', ',');
+        const offStr = totalOff.toFixed(1).replace('.', ',');
+
+        totalsEl.innerHTML = `
+            Загалом <span class="green-text bold-text">${onStr} год</span> зі світлом
+            <br/>та <span class="red-text bold-text">${offStr} год</span> без світла
+            у ${params.selectedGroup} черзі.
+        `;
+    }
 
     // populate table
     mergedPowerData.forEach((elem, index) => {
