@@ -11,7 +11,7 @@ var selectedParams = {
     showSettings: false
 };
 
-const KREMEN_API_URL = "https://withered-sunset-82e1.rovilabcom.workers.dev/api/outerage/week_2";
+const KREMEN_API_URL = "https://kremendigital.proxy.vuv.app/api/outerage/week_2";
 const KREMEN_CACHE_KEY = "kremenOutageCache_v1";
 const KREMEN_MAX_AGE_MS = 20 * 60 * 1000; // 20 minutes
 
