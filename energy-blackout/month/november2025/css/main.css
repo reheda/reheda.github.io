@@ -126,6 +126,8 @@ h1 {
     font-weight: normal;
     letter-spacing: -1px;
     color: #34495E;
+    margin: 0.35em 0;
+    font-size: 1.75rem;
 }
 
 .rwd-table {
@@ -291,11 +293,11 @@ https://codepen.io/markcaron/pen/RVvmaz
 
 
 .accordion {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 .accordion>input[type="checkbox"]:checked~.content {
-    padding: 15px;
+    padding: 10px 0 6px;
     border: 1px solid #e8e8e8;
     border-top: 0;
     border-right: 0;
@@ -312,7 +314,7 @@ https://codepen.io/markcaron/pen/RVvmaz
     color: #333;
     cursor: pointer;
     font-weight: normal;
-    padding: 15px;
+    padding: 10px 0;
     /* background: #e8e8e8; */
     text-align: right;
 }
@@ -366,11 +368,11 @@ https://codepen.io/markcaron/pen/RVvmaz
     font-size: 16px;
     font-weight: 600;
     line-height: normal;
-    margin: 1em 0;
+    margin: 0.35em 0;
     min-height: 20px;
     min-width: 0;
     outline: none;
-    padding: 10px 24px;
+    padding: 8px 18px;
     text-align: center;
     text-decoration: none;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
@@ -417,7 +419,12 @@ https://codepen.io/AllThingsSmitty/pen/JJavZN
     color: #333;
     margin: 0 auto;
     text-align: center;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+}
+
+#headline {
+    margin: 0.2em 0 0.5em;
+    font-size: 1.05rem;
 }
 
 /* h1 {
@@ -434,13 +441,13 @@ https://codepen.io/AllThingsSmitty/pen/JJavZN
     display: inline-block;
     font-size: 1em;
     list-style-type: none;
-    padding: 0 1em;
+    padding: 0 0.65em;
     text-transform: uppercase;
 }
 
 .countdown-wrapper li span {
     display: block;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .emoji {
@@ -464,8 +471,21 @@ li {
 
 
 .energy-data {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 18px;
+    margin-bottom: 30px;
+}
+
+.energy-data > p {
+    margin: 0.2em 0;
+}
+
+.energy-data > p:first-child {
+    font-size: 0.95rem;
+}
+
+.energy-data > p:nth-child(2) {
+    font-size: 0.95rem;
+    color: #5b6773;
 }
 
 
@@ -480,14 +500,14 @@ li {
 
 .control-wrapper span {
     width: 75%;
-    margin: 1em 0;
+    margin: 0.6em 0;
     margin-right: 1em;
     text-align: right;
 }
 
 table caption {
     color: #34495E;
-    margin: 20px 0;
+    margin: 12px 0;
     font-weight: bold;
 }
 
@@ -538,11 +558,11 @@ select {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-bottom: 1em;
+    margin-bottom: 0.25em;
 }
 
 .date-picker-wrapper button {
-    margin: 1em 0.5em;
+    margin: 0.35em 0.35em;
 }
 
 .date-picker-wrapper input {
@@ -550,7 +570,7 @@ select {
     height: 2.4em;
     border-radius: 15px;
     min-height: 30px;
-    margin: 1em 0.5em;
+    margin: 0.35em 0.35em;
     border: 2px solid #46637f;
     font-size: 16px;
     font-weight: 600;
@@ -593,7 +613,7 @@ a:hover {
 
 .power-totals {
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     text-align: center;
     font-weight: bold;
     color: #34495E;

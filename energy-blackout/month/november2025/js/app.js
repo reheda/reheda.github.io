@@ -3,7 +3,12 @@ let blackouts = [];
 let blackoutsForLowTemp = [];
 let rawOutageData = [];
 
-var selectedDate = new Date();
+// const MOCK_NOW_ISO = "2026-02-22T13:00:00"; // set to null to use real current time
+const MOCK_NOW_ISO = null;
+const nowDate = () => (MOCK_NOW_ISO ? new Date(MOCK_NOW_ISO) : new Date());
+const nowMoment = () => moment(nowDate());
+
+var selectedDate = nowDate();
 // var selectedDate = new Date("2022-12-09T21:59:00");
 var selectedParams = {
     showPowerFor: "all",
@@ -16,7 +21,7 @@ const KREMEN_CACHE_KEY = "kremenOutageCache_v1";
 const KREMEN_MAX_AGE_MS = 20 * 60 * 1000; // 20 minutes
 
 async function loadOutageDataWithCache() {
-    const now = Date.now();
+    const now = nowDate().getTime();
 
     try {
         const cachedRaw = localStorage.getItem(KREMEN_CACHE_KEY);
@@ -185,15 +190,10 @@ function populateTableData(currentDate, params) {
 
     var momentCurrentDate = moment(currentDate).locale('uk');
     console.log(momentCurrentDate.format());
-
-    if (!momentCurrentDate.isSame(new Date(), "month")) {
-        document.getElementById("gableCaption").innerHTML = `<span class="red-text">Виберіть, будь ласка, коректну дату у поточному місяці!</span>`;
-        return;
-    }
-
+    const isCurrentDay = momentCurrentDate.isSame(nowDate(), "day");
 
     //table caption
-    document.getElementById("gableCaption").innerHTML = `Години ${powerWording} світла у ${params.selectedGroup} черзі ${momentCurrentDate.calendar(null, {
+    document.getElementById("gableCaption").innerHTML = `Години ${powerWording} світла у ${params.selectedGroup} черзі ${momentCurrentDate.calendar(nowMoment(), {
         sameDay: '[сьогодні] (DD MMMM YYYY)',
         nextDay: '[завтра] (DD MMMM YYYY)',
         nextWeek: 'DD MMMM YYYY',
@@ -209,6 +209,8 @@ function populateTableData(currentDate, params) {
 
     // hide refresh button
     document.getElementById("content").style.display = "none";
+    document.getElementById("headline").style.display = isCurrentDay ? "block" : "none";
+    document.getElementById("countdown").style.display = isCurrentDay ? "block" : "none";
 
     var powerData = [];
 
@@ -222,10 +224,22 @@ function populateTableData(currentDate, params) {
 
     if (!dayData || !Array.isArray(dayData.schedules)) {
         console.warn("No outage data for this date");
+        document.getElementById("gableCaption").innerHTML = `<span class="red-text">Немає даних про відключення на ${momentCurrentDate.format('DD.MM.YYYY')}.</span>`;
+        const totalsEl = document.getElementById("powerTotals");
+        if (totalsEl) {
+            totalsEl.innerHTML = "";
+        }
+        return;
     } else {
         const selectedSchedule = dayData.schedules.find(s => String(s.queue) === params.selectedGroup);
         if (!selectedSchedule || !Array.isArray(selectedSchedule.schedule)) {
             console.warn("No schedule for selected group:", params.selectedGroup);
+            document.getElementById("gableCaption").innerHTML = `<span class="red-text">Немає графіка для ${params.selectedGroup} черги на ${momentCurrentDate.format('DD.MM.YYYY')}.</span>`;
+            const totalsEl = document.getElementById("powerTotals");
+            if (totalsEl) {
+                totalsEl.innerHTML = "";
+            }
+            return;
         } else {
             const sArr = selectedSchedule.schedule;
             if (sArr.length > 0) {
@@ -321,11 +335,7 @@ function populateTableData(currentDate, params) {
             shouldProcessElement = elem.powerEnabled == false;
         }
 
-        if (momentCurrentDate.isSame(new Date(), "day")) {
-
-            document.getElementById("headline").style.display = "block";
-            document.getElementById("countdown").style.display = "block";
-
+        if (isCurrentDay) {
             var timeLeftWording;
             if (elem.isActiveSlot) {
                 var nextPowerChangeElem = getNextChangePowerElement(mergedPowerData, index, elem);
@@ -344,9 +354,6 @@ function populateTableData(currentDate, params) {
                 document.getElementById("headline").innerHTML = `Залишилось часу до наступного ${timeLeftWording}`;
 
             }
-        } else {
-            document.getElementById("headline").style.display = "none";
-            document.getElementById("countdown").style.display = "none";
         }
 
         if (shouldProcessElement) {
@@ -357,7 +364,7 @@ function populateTableData(currentDate, params) {
                 // '<td data-th="Черга">' + elem.group + '</td>'+
                 `<td data-th="Вкл/відкл" style="display: flex;"><span class="circle ${elem.powerEnabled ? 'green-bg' : 'red-bg'}"></span></td>`;
 
-            if (momentCurrentDate.isSame(new Date(), "day") && elem.isActiveSlot) {
+            if (isCurrentDay && elem.isActiveSlot) {
                 tr.classList.add('active-row');
             }
 
@@ -389,8 +396,22 @@ function getLastSamePowerElement(powerData, index, elem) {
 
 function isBeetweenSlots(momentDate, timeSlot) {
     var [timeSlotStart, timeSlotEnd] = timeSlot.split(' - ');
-    var momentTimeSlotStart = moment(timeSlotStart, ['H:m']);
-    var momentTimeSlotEnd = moment(timeSlotEnd, ['H:m'])
+    var [startHours, startMinutes] = timeSlotStart.split(':').map(Number);
+    var [endHours, endMinutes] = timeSlotEnd.split(':').map(Number);
+
+    // Build slot times on the same calendar day as momentDate (not system "today")
+    var momentTimeSlotStart = moment(momentDate).startOf('day').set({
+        hour: startHours,
+        minute: startMinutes,
+        second: 0,
+        millisecond: 0,
+    });
+    var momentTimeSlotEnd = moment(momentDate).startOf('day').set({
+        hour: endHours,
+        minute: endMinutes,
+        second: 0,
+        millisecond: 0,
+    });
     if (momentTimeSlotEnd.isBefore(momentTimeSlotStart)) {
         momentTimeSlotEnd.add(1, 'days');
     }
@@ -468,7 +489,12 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
         window.clearInterval(i);
     }
 
-    var updatedTargetDate = moment(momentTargetDate);
+    var updatedTargetDate = moment(momentCurrentDate).startOf('day').set({
+        hour: momentTargetDate.hours(),
+        minute: momentTargetDate.minutes(),
+        second: 0,
+        millisecond: 0,
+    });
     if (updatedTargetDate.isBefore(momentCurrentDate)) {
         updatedTargetDate.set({
             'hours': updatedTargetDate.hours() + 24,
@@ -478,13 +504,7 @@ function startCountdown(momentTargetDate, momentCurrentDate) {
 
     const x = setInterval(function () {
 
-        var corretMomentBasedOnCurrentDate = moment().set({
-            'year': momentCurrentDate.year(),
-            'month': momentCurrentDate.month(),
-            'day': momentCurrentDate.day(),
-            // 'hours': momentCurrentDate.hours(),
-            // 'minutes': momentCurrentDate.minutes(),
-        });
+        var corretMomentBasedOnCurrentDate = nowMoment();
 
         // console.log(corretMomentBasedOnCurrentDate.format())
         const myDuration = moment.duration(updatedTargetDate.diff(corretMomentBasedOnCurrentDate));
@@ -537,33 +557,42 @@ document.getElementById('todayButton').addEventListener("click", (e) => {
     console.log(e);
     document.getElementById('tomorrowButton').classList.remove('selected');
     document.getElementById('todayButton').classList.add('selected');
-    document.getElementById('anyDateInput').classList.remove('selected');
-    populateTableData(moment().toDate());
+    const anyDateInput = document.getElementById('anyDateInput');
+    if (anyDateInput) {
+        anyDateInput.classList.remove('selected');
+    }
+    populateTableData(nowMoment().toDate());
 });
 
 document.getElementById('tomorrowButton').addEventListener("click", (e) => {
     console.log(e);
     document.getElementById('todayButton').classList.remove('selected');
     document.getElementById('tomorrowButton').classList.add('selected');
-    document.getElementById('anyDateInput').classList.remove('selected');
-    populateTableData(moment().add(1, 'days').toDate());
+    const anyDateInput = document.getElementById('anyDateInput');
+    if (anyDateInput) {
+        anyDateInput.classList.remove('selected');
+    }
+    populateTableData(nowMoment().add(1, 'days').toDate());
 
 });
 
-['change', 'click'].forEach(evt =>
-    document.getElementById('anyDateInput').addEventListener(evt, (e) => {
-        console.log(e.target.value);
-        document.getElementById('todayButton').classList.remove('selected');
-        document.getElementById('tomorrowButton').classList.remove('selected');
-        document.getElementById('anyDateInput').classList.add('selected');
-        var corretDateWithoutTime = moment(e.target.value);
-        populateTableData(moment().set({
-            'year': corretDateWithoutTime.year(),
-            'month': corretDateWithoutTime.month(),
-            'date': corretDateWithoutTime.date(),
-        }).toDate());
-    })
-);
+const anyDateInput = document.getElementById('anyDateInput');
+if (anyDateInput) {
+    ['change', 'click'].forEach(evt =>
+        anyDateInput.addEventListener(evt, (e) => {
+            console.log(e.target.value);
+            document.getElementById('todayButton').classList.remove('selected');
+            document.getElementById('tomorrowButton').classList.remove('selected');
+            anyDateInput.classList.add('selected');
+            var corretDateWithoutTime = moment(e.target.value);
+            populateTableData(nowMoment().set({
+                'year': corretDateWithoutTime.year(),
+                'month': corretDateWithoutTime.month(),
+                'date': corretDateWithoutTime.date(),
+            }).toDate());
+        })
+    );
+}
 
 
 
@@ -575,6 +604,9 @@ Date.prototype.toDateInputValue = (function () {
 });
 
 // Set today date for date picker.
-if (moment("2025-11").isSame(new Date(), "month")) {
-    document.getElementById('anyDateInput').value = new Date().toDateInputValue();
+if (moment("2025-11").isSame(nowDate(), "month")) {
+    const anyDateInput = document.getElementById('anyDateInput');
+    if (anyDateInput) {
+        anyDateInput.value = nowDate().toDateInputValue();
+    }
 }
