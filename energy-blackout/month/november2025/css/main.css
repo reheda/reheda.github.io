@@ -473,19 +473,27 @@ li {
 .energy-data {
     margin-top: 18px;
     margin-bottom: 30px;
+    position: relative;
+}
+
+.top-reload-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
 }
 
 .energy-data > p {
     margin: 0.2em 0;
 }
 
-.energy-data > p:first-child {
+.energy-data > p:first-of-type {
     font-size: 0.95rem;
-}
-
-.energy-data > p:nth-child(2) {
-    font-size: 0.95rem;
-    color: #5b6773;
 }
 
 
